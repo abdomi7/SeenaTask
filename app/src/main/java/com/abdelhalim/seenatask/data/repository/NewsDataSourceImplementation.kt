@@ -22,6 +22,7 @@ class NewsDataSourceImplementation @Inject constructor(private var retrofit: Ret
                 call: Call<News?>,
                 response: Response<News?>
             ) {
+                failed.value = false
                 data.value = response.body()
             }
 

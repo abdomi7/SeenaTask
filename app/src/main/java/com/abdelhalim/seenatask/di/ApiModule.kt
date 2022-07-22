@@ -1,6 +1,7 @@
 package com.abdelhalim.seenatask.di
 
 import android.content.Context
+import com.abdelhalim.seenatask.data.repository.Interceptor
 import com.abdelhalim.seenatask.domain.repository.NewsDataSource
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
@@ -26,7 +27,7 @@ class ApiModule {
     @Singleton
     fun provideHttpCache(@ApplicationContext appContext: Context): Cache {
         val cacheSize = 10 * 1024 * 1024
-        return Cache(File(appContext.cacheDir, "http_cache"), cacheSize.toLong())
+        return Cache(File(appContext.cacheDir, "responses"), cacheSize.toLong())
     }
 
     @Provides
@@ -39,8 +40,9 @@ class ApiModule {
 
     @Provides
     @Singleton
-    fun provideOkhttpClient(cache: Cache?): OkHttpClient {
+    fun provideOkhttpClient(cache: Cache?, @ApplicationContext appContext: Context): OkHttpClient {
         val client = OkHttpClient.Builder()
+        client.networkInterceptors().add(Interceptor(context = appContext))
         client.cache(cache)
         return client.build()
     }
@@ -51,7 +53,8 @@ class ApiModule {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create(gson!!))
             .baseUrl(NewsDataSource.BASE_URL)
-            .client(okHttpClient!!).addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+            .client(okHttpClient!!)
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .build()
     }
 

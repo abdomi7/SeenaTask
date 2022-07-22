@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ArticlesViewModel @Inject constructor(
-    useCases: UseCases
+    private val useCases: UseCases
 ) : ViewModel() {
     private var _news: MutableState<News?> = mutableStateOf(null)
     var news: State<News?> = _news
@@ -19,8 +19,10 @@ class ArticlesViewModel @Inject constructor(
     var failed: State<Boolean> = _failed
 
     init {
-        useCases.getNewsData.invoke(_news, _failed)
-
+        getNewsData()
     }
 
+    fun getNewsData() {
+        useCases.getNewsData.invoke(_news, _failed)
+    }
 }
