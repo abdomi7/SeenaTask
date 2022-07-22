@@ -39,7 +39,7 @@ fun ArticlesView(navController: NavHostController) {
             } else {
                 LazyColumn(state = rememberLazyListState(), modifier = Modifier.fillMaxSize()) {
                     items(model.news.value?.results!!) { item ->
-                        NewsListItem(item = item)
+                        NewsListItem(item = item, navController)
 
                     }
                 }

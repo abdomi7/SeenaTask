@@ -15,14 +15,31 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.abdelhalim.seenatask.domain.models.Results
+import com.abdelhalim.seenatask.presentation.models.ArticleDetailsArgument
+import com.abdelhalim.seenatask.presentation.models.Screens
 import com.skydoves.landscapist.CircularReveal
 import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
-fun NewsListItem(item: Results?) {
+fun NewsListItem(item: Results?, navController: NavHostController) {
 
-    Box(modifier = Modifier.clickable { }) {
+    Box(modifier = Modifier.clickable {
+        navController.navigate(
+            Screens.ArticleDetailsScreen.setParam(
+                ArticleDetailsArgument(
+                    item?.title,
+                    item?.abstract,
+                    item?.byline,
+                    item?.itemType,
+                    item?.publishedDate,
+                    item?.multimedia?.first()?.url
+                        ?: "https://static01.nyt.com/newsgraphics/images/icons/defaultPromoCrop.png"
+                )
+            )
+        )
+    }) {
         Row(
             modifier = Modifier
                 .padding(12.dp)
