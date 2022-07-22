@@ -1,7 +1,5 @@
 package com.abdelhalim.seenatask.data.repository
 
-import android.content.ContentValues
-import android.util.Log
 import androidx.compose.runtime.MutableState
 import com.abdelhalim.seenatask.domain.models.News
 import com.abdelhalim.seenatask.domain.repository.NewsDataSource

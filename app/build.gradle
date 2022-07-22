@@ -84,6 +84,9 @@ dependencies {
     implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
 
     implementation 'com.github.doctor-blue:compose-navigation:1.1.0'
+
+    implementation 'com.github.skydoves:landscapist-glide:1.5.1'
+
 }
 
 kapt {

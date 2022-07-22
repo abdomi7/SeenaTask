@@ -3,8 +3,8 @@ package com.abdelhalim.seenatask.presentation
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
@@ -17,8 +17,9 @@ import com.devcomentry.lib.composable
 import com.devcomentry.lib.from
 import dagger.hilt.android.AndroidEntryPoint
 
+@ExperimentalMaterial3Api
 @AndroidEntryPoint
-@ExperimentalComposeUiApi
+
 
 class MainActivity : ComponentActivity() {
 
@@ -33,7 +34,8 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@ExperimentalComposeUiApi
+@ExperimentalMaterial3Api
+
 @Composable
 fun Navigation(
     navController: NavHostController
