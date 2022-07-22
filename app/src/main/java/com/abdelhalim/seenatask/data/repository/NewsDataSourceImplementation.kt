@@ -25,13 +25,9 @@ class NewsDataSourceImplementation @Inject constructor(private var retrofit: Ret
                 response: Response<News?>
             ) {
                 data.value = response.body()
-                for (i in data.value?.results?.indices!!) {
-                    Log.d(ContentValues.TAG, "onResponse: ${data.value!!.results[i].title}")
-                }
             }
 
             override fun onFailure(call: Call<News?>, t: Throwable) {
-                Log.d(ContentValues.TAG, "onFailure: ${t.localizedMessage}")
                 failed.value = true
             }
         })

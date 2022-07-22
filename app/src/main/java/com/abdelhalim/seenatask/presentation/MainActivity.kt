@@ -7,12 +7,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.abdelhalim.seenatask.presentation.models.ArticleDetailsArgument
 import com.abdelhalim.seenatask.presentation.models.Screens
 import com.abdelhalim.seenatask.presentation.theme.SeenaTaskTheme
 import com.abdelhalim.seenatask.presentation.views.ArticleDetailsView
 import com.abdelhalim.seenatask.presentation.views.ArticlesView
+import com.devcomentry.lib.composable
+import com.devcomentry.lib.from
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -38,15 +40,20 @@ fun Navigation(
 ) {
     NavHost(navController, startDestination = Screens.Articles.route) {
 
-        composable(Screens.Articles.route) {
+        composable(Screens.Articles) {
             ArticlesView(
                 navController
             )
         }
-        composable(Screens.ArticleDetailsScreen.route) {
-            ArticleDetailsView(
-                navController
-            )
+        composable(Screens.ArticleDetailsScreen, ArticleDetailsArgument()) {
+
+            it.arguments?.let { bundle ->
+                val argument = ArticleDetailsArgument().from(bundle)
+                ArticleDetailsView(
+                    navController, argument
+                )
+            }
+
         }
     }
 }

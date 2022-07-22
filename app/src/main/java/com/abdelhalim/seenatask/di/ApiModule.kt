@@ -1,10 +1,7 @@
 package com.abdelhalim.seenatask.di
 
 import android.content.Context
-import com.abdelhalim.seenatask.data.repository.NewsDataSourceImplementation
 import com.abdelhalim.seenatask.domain.repository.NewsDataSource
-import com.abdelhalim.seenatask.domain.useCases.GetNewsData
-import com.abdelhalim.seenatask.domain.useCases.UseCases
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -57,7 +54,6 @@ class ApiModule {
             .client(okHttpClient!!).addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .build()
     }
-
 
 
 }

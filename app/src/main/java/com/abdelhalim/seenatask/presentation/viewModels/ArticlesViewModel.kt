@@ -12,7 +12,6 @@ import javax.inject.Inject
 @HiltViewModel
 class ArticlesViewModel @Inject constructor(
     useCases: UseCases
-
 ) : ViewModel() {
     private var _news: MutableState<News?> = mutableStateOf(null)
     var news: State<News?> = _news
