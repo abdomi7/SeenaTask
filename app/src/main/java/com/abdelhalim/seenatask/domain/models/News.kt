@@ -3,7 +3,6 @@ package com.abdelhalim.seenatask.domain.models
 import com.google.gson.annotations.SerializedName
 
 data class News(
-
     @SerializedName("status") var status: String? = null,
     @SerializedName("copyright") var copyright: String? = null,
     @SerializedName("section") var section: String? = null,
@@ -13,7 +12,6 @@ data class News(
 )
 
 data class Results(
-
     @SerializedName("section") var section: String? = null,
     @SerializedName("subsection") var subsection: String? = null,
     @SerializedName("title") var title: String? = null,
@@ -33,11 +31,9 @@ data class Results(
     @SerializedName("geo_facet") var geoFacet: ArrayList<String> = arrayListOf(),
     @SerializedName("multimedia") var multimedia: ArrayList<Multimedia> = arrayListOf(),
     @SerializedName("short_url") var shortUrl: String? = null
-
 )
 
 data class Multimedia(
-
     @SerializedName("url") var url: String? = null,
     @SerializedName("format") var format: String? = null,
     @SerializedName("height") var height: Int? = null,
@@ -46,6 +42,5 @@ data class Multimedia(
     @SerializedName("subtype") var subtype: String? = null,
     @SerializedName("caption") var caption: String? = null,
     @SerializedName("copyright") var copyright: String? = null
-
 )
 

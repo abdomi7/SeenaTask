@@ -49,9 +49,9 @@ class ApiModule {
     @Singleton
     fun provideRetrofit(gson: Gson?, okHttpClient: OkHttpClient?): Retrofit {
         return Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create(gson))
+            .addConverterFactory(GsonConverterFactory.create(gson!!))
             .baseUrl(NewsDataSource.BASE_URL)
-            .client(okHttpClient)
+            .client(okHttpClient!!)
             .build()
     }
 }
