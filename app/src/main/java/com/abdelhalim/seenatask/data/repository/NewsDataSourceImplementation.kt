@@ -3,9 +3,11 @@ package com.abdelhalim.seenatask.data.repository
 import androidx.compose.runtime.MutableState
 import com.abdelhalim.seenatask.domain.models.News
 import com.abdelhalim.seenatask.domain.repository.NewsDataSource
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Observer
+import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.schedulers.Schedulers
 import retrofit2.Retrofit
 import javax.inject.Inject
 
@@ -13,23 +15,25 @@ class NewsDataSourceImplementation @Inject constructor(private var retrofit: Ret
 
     fun getNewsList(data: MutableState<News?>, failed: MutableState<Boolean>) {
 
-
         val newsDataSource: NewsDataSource = retrofit.create(NewsDataSource::class.java)
-        val call: Call<News?>? = newsDataSource.news
-        call?.enqueue(object : Callback<News?> {
+        val call: Observable<News>? = newsDataSource.news
+        call?.subscribeOn(Schedulers.io())?.observeOn(AndroidSchedulers.mainThread())
+            ?.subscribe(object : Observer<News> {
+                override fun onNext(response: News) {
+                    failed.value = false
+                    data.value = response
+                }
 
-            override fun onResponse(
-                call: Call<News?>,
-                response: Response<News?>
-            ) {
-                failed.value = false
-                data.value = response.body()
-            }
+                override fun onError(e: Throwable) {
+                    failed.value = true
+                }
 
-            override fun onFailure(call: Call<News?>, t: Throwable) {
-                failed.value = true
-            }
-        })
+                override fun onComplete() {
+                }
+
+                override fun onSubscribe(d: Disposable) {
+                }
+            })
 
     }
 }

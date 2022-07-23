@@ -3,11 +3,11 @@
 - Application for displaying the latest news form the NewYorkTimes API with the ability to see news
   details
 - News Data is Cached to Show it When There is No Internet Connection
+
 ## Features
 
 - Kotlin
-- Clean Architecture 
---Presentation Layer, Domain Layer, Data Layer
+- Clean Architecture --Presentation Layer, Domain Layer, Data Layer
 - MVVM
 - Repository
 - UseCases
