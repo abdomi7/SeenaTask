@@ -1,7 +1,7 @@
 package com.abdelhalim.seenatask.data.repository
 
 import android.content.Context
-import com.example.instabuginternshiptask.data.services.NetworkStatus
+import com.abdelhalim.seenatask.data.services.NetworkStatus
 import okhttp3.Interceptor
 import okhttp3.Response
 

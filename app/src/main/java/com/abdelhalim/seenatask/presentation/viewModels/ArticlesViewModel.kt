@@ -1,6 +1,5 @@
 package com.abdelhalim.seenatask.presentation.viewModels
 
-import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -33,15 +32,12 @@ class ArticlesViewModel @Inject constructor(
         useCases.getNewsData.invoke(_news, _failed)
         _isRefreshing.value = true
         Observable.create<Any> { emitter ->
-            Log.d("DelayExample", "Create")
-
             emitter.onComplete()
         }
             .subscribeOn(Schedulers.io())
             .delay(2, TimeUnit.SECONDS)
             .observeOn(Schedulers.io()).doOnComplete {
                 _isRefreshing.value = false
-                Log.d("DelayExample", "Done")
             }.subscribe()
     }
 }

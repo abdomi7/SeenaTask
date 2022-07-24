@@ -1,26 +1,30 @@
-package com.example.instabuginternshiptask.data.services
+package com.abdelhalim.seenatask.data.services
 
 import android.content.Context
 import android.net.ConnectivityManager
-import android.util.Log
+import android.net.NetworkCapabilities
 
 
 class NetworkStatus(val context: Context) {
     var connectivityManager: ConnectivityManager? = null
-    var connected = false
     val isOnline: Boolean
         get() {
-            try {
-                connectivityManager = context
-                    .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-                val networkInfo = connectivityManager!!.activeNetworkInfo
-                connected = networkInfo != null && networkInfo.isAvailable &&
-                        networkInfo.isConnected
-                return connected
-            } catch (e: Exception) {
-                println("CheckConnectivity Exception: " + e.message)
-                Log.v("connectivity", e.toString())
-            }
-            return connected
+            connectivityManager = context
+                .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            return if (connectivityManager != null) {
+                val capabilities = connectivityManager!!.getNetworkCapabilities(
+                    connectivityManager!!.activeNetwork
+                )
+                if (capabilities != null) {
+                    if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                        return true
+                    }
+                    if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                        true
+                    } else capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
+                } else {
+                    false
+                }
+            } else false
         }
 }

@@ -41,7 +41,7 @@ fun ArticlesView(navController: NavHostController) {
                     image = painterResource(com.abdelhalim.seenatask.R.drawable.ic_empty),
                     onClick = { vm.getNewsData() }
                 )
-            } else {
+            } else if (vm.news.value != null) {
                 SwipeRefresh(
                     state = rememberSwipeRefreshState(vm.isRefreshing.value),
                     onRefresh = {
@@ -50,14 +50,12 @@ fun ArticlesView(navController: NavHostController) {
                     modifier = Modifier
                         .fillMaxSize()
                 ) {
-                    if (vm.news.value != null) {
-                        LazyColumn(
-                            state = rememberLazyListState(),
-                            modifier = Modifier.fillMaxSize()
-                        ) {
-                            items(vm.news.value?.results!!) { item ->
-                                NewsListItem(item = item, navController)
-                            }
+                    LazyColumn(
+                        state = rememberLazyListState(),
+                        modifier = Modifier.fillMaxSize()
+                    ) {
+                        items(vm.news.value?.results!!) { item ->
+                            NewsListItem(item = item, navController)
                         }
                     }
                 }
