@@ -3,7 +3,6 @@ package com.abdelhalim.seenatask.data.repository
 import androidx.compose.runtime.MutableState
 import com.abdelhalim.seenatask.domain.models.News
 import com.abdelhalim.seenatask.domain.repository.NewsDataSource
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
@@ -17,7 +16,7 @@ class NewsDataSourceImplementation @Inject constructor(private var retrofit: Ret
 
         val newsDataSource: NewsDataSource = retrofit.create(NewsDataSource::class.java)
         val call: Observable<News>? = newsDataSource.news
-        call?.subscribeOn(Schedulers.io())?.observeOn(AndroidSchedulers.mainThread())
+        call?.subscribeOn(Schedulers.io())?.observeOn(Schedulers.io())
             ?.subscribe(object : Observer<News> {
                 override fun onNext(response: News) {
                     failed.value = false
